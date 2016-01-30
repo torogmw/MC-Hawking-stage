@@ -1,0 +1,25 @@
+/*canvas {
+	position:absolute;
+	top: 0;
+	left: 150%;
+}*/
+
+.wrapper {
+	position: relative;
+	width: 672px;
+	height: 672px;
+	margin-left: auto ;
+  	margin-right: auto ;
+}
+
+#target {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+#UICanvas {
+	position: absolute;
+	top: 350;
+	left: 240;
+}

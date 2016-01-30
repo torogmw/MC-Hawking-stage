@@ -118,9 +118,20 @@ var game = new Phaser.Game(1280, 712, Phaser.CANVAS, 'target', {
 
             // http://0.0.0.0:6789/api/visualize
 
-            // reqwest();
-          that.addToStringArray();
-        }, 2000);
+            reqwest({
+                url: 'api/visualize'
+              , type: 'json'
+              , method: 'get'
+              , error: function (err) { }
+              , success: function (resp) {
+                    if(resp.ready) {
+                        that.addToStringArray(resp.msg);
+                        console.log(resp.msg);
+                    }
+                }
+            });
+          
+        }, 100);
 
         this.content = TEST[0]['content'];
         this.scrollText = game.add.bitmapText(0.9 * game.world.width, 0.8 * game.world.height, 'Bazaronite', this.content, 60);
@@ -187,11 +198,11 @@ var game = new Phaser.Game(1280, 712, Phaser.CANVAS, 'target', {
     //  }
     // },
 
-    addToStringArray: function() {
+    addToStringArray: function(newContent) {
         // this.scrollText = game.add.bitmapText(0.9 * game.world.width, 0.8 * game.world.height, 'Bazaronite', TEST[0]['content'], 60);
         // this.scrollText.align = 'left';
         var index = Math.floor(Math.random() * 10);
-        this.content = TEST[index]['content'];
+        this.content = newContent;
         this.stringArray.push(this.content);
         this.onRock();
         this.rockStartTime = game.time.time;

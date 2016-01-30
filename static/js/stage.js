@@ -94,6 +94,12 @@ var game = new Phaser.Game(1280, 712, Phaser.CANVAS, 'target', {
         this.playerRock.animations.add('move6',[5,4,5],10,false);
         this.playerRock.alpha = 0;
 
+
+        this.Glight = game.add.sprite(game.world.width, 0,'green');
+        this.Glight.anchor.set(1.5,0);
+        this.Glight.alpha = 0;
+
+
         this.Rlight = game.add.sprite(game.world.width, 0,'red');
         this.Rlight.anchor.set(1,0);
         this.Rlight.alpha = 0;
@@ -114,24 +120,24 @@ var game = new Phaser.Game(1280, 712, Phaser.CANVAS, 'target', {
         this.rockButton = game.input.keyboard.addKey(Phaser.Keyboard.D);
         this.rockButton.onDown.add(this.onRock,this);
 
-        var t = d3_timer.timer(function(elapsed, time) {
+        // var t = d3_timer.timer(function(elapsed, time) {
 
-            // http://0.0.0.0:6789/api/visualize
+        //     // http://0.0.0.0:6789/api/visualize
 
-            reqwest({
-                url: 'api/visualize'
-              , type: 'json'
-              , method: 'get'
-              , error: function (err) { }
-              , success: function (resp) {
-                    if(resp.ready) {
-                        that.addToStringArray(resp.msg);
-                        console.log(resp.msg);
-                    }
-                }
-            });
+        //     reqwest({
+        //         url: 'api/visualize'
+        //       , type: 'json'
+        //       , method: 'get'
+        //       , error: function (err) { }
+        //       , success: function (resp) {
+        //             if(resp.ready) {
+        //                 that.addToStringArray(resp.msg);
+        //                 console.log(resp.msg);
+        //             }
+        //         }
+        //     });
           
-        }, 100);
+        // }, 100);
 
         this.content = TEST[0]['content'];
         this.scrollText = game.add.bitmapText(0.9 * game.world.width, 0.8 * game.world.height, 'Bazaronite', this.content, 60);
@@ -217,8 +223,11 @@ var game = new Phaser.Game(1280, 712, Phaser.CANVAS, 'target', {
         this.letterCover2.alpha = 1;
         this.lightBG.alpha = 0.7;
         this.Rlight.alpha = 0.25;
+        this.Glight.alpha = 1;
         this.Ylight.alpha = 0.4;
         this.Blight.alpha = 0.3;
+
+        this.Glight.alpha = 0.5;
         this.Rlight.angle = 0;
         this.Blight.angle = 0;
 
@@ -262,6 +271,7 @@ var game = new Phaser.Game(1280, 712, Phaser.CANVAS, 'target', {
         this.Blight.alpha = 0;
         this.Rlight.angle = 0;
         this.Blight.angle = 0;
+        this.Glight.angle = 0;
         this.letterCover2.alpha = 0;
 
         if(this.playerTween!=null)  game.tweens.remove(this.playerTween);

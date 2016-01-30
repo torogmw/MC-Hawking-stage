@@ -66,9 +66,14 @@ var game = new Phaser.Game(375, 667, Phaser.CANVAS, 'target', {
       var message = this.myInput.canvasInput.value();
       this.myInput.canvasInput.value('');
       //File data test    
-      var xhr = new XMLHttpRequest();
-      xhr.open('get', '/api/send?message='+message, true);
-      xhr.send(message);
+     reqwest({
+          url: '/api/send?message=' + encodeURIComponent(message)
+        , method: 'get'
+        , error: function (err) { }
+        , success: function (resp) {
+            console.log("send successfully", resp);
+          }
+      });
       this.StopAnimation();
   },
 

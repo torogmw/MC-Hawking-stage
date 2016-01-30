@@ -75,6 +75,8 @@ var game = new Phaser.Game(375, 667, Phaser.CANVAS, 'target', {
             console.log("send successfully", resp);
           }
         });
+      } else {
+        alert("I need your lovely words. If need help, call me babe.");
       }
       this.StopAnimation();
   },

@@ -35,7 +35,8 @@ def api_sendessage():
     send OSC message to rap server
     """
     message = request.args.get('message')
-    send_lyrics(message)
+    # send_lyrics(message)
+    stash_lyrics(message)
     return jsonify(status="success")
 
 

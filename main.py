@@ -8,6 +8,8 @@ from flask import (
     redirect
 )
 
+from interface import send_lyrics, receive_lyrics, stash_lyrics
+
 app = Flask(__name__)
 app.config.from_pyfile('settings/development_settings.cfg')
 
@@ -33,8 +35,30 @@ def api_sendessage():
     send OSC message to rap server
     """
     message = request.args.get('message')
-    print "I hear you say %s" % message
+    send_lyrics(message)
     return jsonify(status="success")
+
+
+@app.route('/api/stash', methods=['POST'])
+def api_stashmessage():
+    """
+    save message to queue for visualize
+    """
+    msg = request.form['message']
+    stash_lyrics(msg)
+    return jsonify(status="success")
+
+
+@app.route('/api/visualize')
+def api_getmessage():
+    """
+    recieve OSC message from rap server
+    """
+    message = receive_lyrics()
+    if message != "":
+        return jsonify(ready=True, msg=message)
+    else:
+        return jsonify(ready=False)
 
 
 if __name__ == "__main__":

@@ -68,7 +68,7 @@ var game = new Phaser.Game(1280, 712, Phaser.CANVAS, 'target', {
     create: function(){
 
         game.plugins.screenShake = game.plugins.add(Phaser.Plugin.ScreenShake);
-
+        var that = this;
         this.background = game.add.sprite(game.world.centerX, game.world.centerY,'bg_dark');
         this.background.anchor.set(0.5);
 
@@ -109,8 +109,18 @@ var game = new Phaser.Game(1280, 712, Phaser.CANVAS, 'target', {
         this.lightButton = game.input.keyboard.addKey(Phaser.Keyboard.S);
         this.lightButton.onDown.add(this.addToStringArray,this);
 
+
+
         this.rockButton = game.input.keyboard.addKey(Phaser.Keyboard.D);
         this.rockButton.onDown.add(this.onRock,this);
+
+        var t = d3_timer.timer(function(elapsed, time) {
+
+            // http://0.0.0.0:6789/api/visualize
+
+            // reqwest();
+          that.addToStringArray();
+        }, 2000);
 
         this.content = TEST[0]['content'];
         this.scrollText = game.add.bitmapText(0.9 * game.world.width, 0.8 * game.world.height, 'Bazaronite', this.content, 60);
@@ -142,7 +152,7 @@ var game = new Phaser.Game(1280, 712, Phaser.CANVAS, 'target', {
         if(this.stringArray.length > this.currentStringNum){
             this.scrollText.text = this.stringArray[this.currentStringNum];
             if(this.scrollTextTween == null){
-                this.scrollTextTween = game.add.tween(this.scrollText).to({x:-(this.scrollText.textWidth*this.scrollText.text.length + 520)}, 10000, "Linear", true, 0, 0);
+                this.scrollTextTween = game.add.tween(this.scrollText).to({x:-(this.scrollText.textWidth*this.scrollText.text.length + 520)}, 4000, "Linear", true, 0, 0);
                 this.scrollTextTween.onComplete.add(this.readNextText, this);
             }else{
                 if(!this.scrollTextTween.isRunning){
@@ -223,7 +233,7 @@ var game = new Phaser.Game(1280, 712, Phaser.CANVAS, 'target', {
                 break;
         }
 
-        game.plugins.screenShake.shake(10);
+        // game.plugins.screenShake.shake(10);
 
     },
 

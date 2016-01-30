@@ -39,8 +39,8 @@ var game = new Phaser.Game(375, 667, Phaser.CANVAS, 'target', {
 
       this.myInput = this.createInput(game.world.centerX, game.world.centerY + 125);
       this.myInput.anchor.set(0.5);
-      this.myInput.canvasInput.value('Type your lyrics here!');
-      this.myInput.canvasInput.blur();
+      // this.myInput.canvasInput.value('Type your lyrics here!');
+      // this.myInput.canvasInput.blur();
 
       this.btn = game.add.button(game.world.centerX, game.world.centerY + 230, 'button',this.buttonClicked, this,0,0,1);
       this.btn.anchor.set(0.5);
@@ -66,14 +66,16 @@ var game = new Phaser.Game(375, 667, Phaser.CANVAS, 'target', {
       var message = this.myInput.canvasInput.value();
       this.myInput.canvasInput.value('');
       //File data test    
-     reqwest({
+      if(message && !!message.length) {
+        reqwest({
           url: '/api/send?message=' + encodeURIComponent(message)
           , method: 'get'
           , error: function (err) { }
           , success: function (resp) {
             console.log("send successfully", resp);
           }
-      });
+        });
+      }
       this.StopAnimation();
   },
 

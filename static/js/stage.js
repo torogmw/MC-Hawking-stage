@@ -120,24 +120,24 @@ var game = new Phaser.Game(1280, 712, Phaser.CANVAS, 'target', {
         this.rockButton = game.input.keyboard.addKey(Phaser.Keyboard.D);
         this.rockButton.onDown.add(this.onRock,this);
 
-        // var t = d3_timer.timer(function(elapsed, time) {
+        var t = d3_timer.timer(function(elapsed, time) {
 
-        //     // http://0.0.0.0:6789/api/visualize
+            // http://0.0.0.0:6789/api/visualize
 
-        //     reqwest({
-        //         url: 'api/visualize'
-        //       , type: 'json'
-        //       , method: 'get'
-        //       , error: function (err) { }
-        //       , success: function (resp) {
-        //             if(resp.ready) {
-        //                 that.addToStringArray(resp.msg);
-        //                 console.log(resp.msg);
-        //             }
-        //         }
-        //     });
+            reqwest({
+                url: 'api/visualize'
+              , type: 'json'
+              , method: 'get'
+              , error: function (err) { }
+              , success: function (resp) {
+                    if(resp.ready) {
+                        that.addToStringArray(resp.msg);
+                        console.log(resp.msg);
+                    }
+                }
+            });
           
-        // }, 100);
+        }, 100);
 
         this.content = TEST[0]['content'];
         this.scrollText = game.add.bitmapText(0.9 * game.world.width, 0.8 * game.world.height, 'Bazaronite', this.content, 60);

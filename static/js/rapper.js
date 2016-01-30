@@ -99,7 +99,7 @@ var game = new Phaser.Game(375, 667, Phaser.CANVAS, 'target', {
               canvas: bmd.canvas,
               extraX: x - 140,
               extraY: y - 95,
-              fontSize: 30,
+              fontSize: 20,
               fontFamily: 'Arial',
               fontColor: '#3fdf6c',
               fontWeight: 'bold',

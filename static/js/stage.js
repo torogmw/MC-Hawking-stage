@@ -1,4 +1,35 @@
+var TEST = [
+    {
+        content: "zero I'm creating some new animations for a project at work. T",
+    }, {
+        content: "one I'd like to add a text moving to the top, like with y velocity but I can't find a way to do it, I'm that dumb ? (yes is strongly possible :rolleyes:",
+    }, {
+        content: "two moving to the top, like with y velocity but I can'",
+    }, {
+        content: "three I'm creating some new animations for a project at work. T",
+    }, {
+        content: "four Toro new animations for a project at work. T",
+    }, {
+        content: "five This is an array of string",
+    },{
+        content: "six I'm creating some new animations for a project at work. T",
+    }, {
+        content: "seven I'd like to add a text moving to the top, like with y velocity but I can't find a way to do it, I'm that dumb ? (yes is strongly possible :rolleyes:",
+    }, {
+        content: "eight moving to the top, like with y velocity but I can'",
+    }, {
+        content: "nine I'm creating some new animations for a project at work. T",
+    }, {
+        content: "ten Toro new animations for a project at work. T",
+    }, {
+        content: "eleven This is an array of string",
+    }
+];
+
 var game = new Phaser.Game(1280, 712, Phaser.CANVAS, 'target', {
+
+
+    content: "",
 
     stringArray:[],
     currentStringNum:0,
@@ -81,10 +112,11 @@ var game = new Phaser.Game(1280, 712, Phaser.CANVAS, 'target', {
         this.rockButton = game.input.keyboard.addKey(Phaser.Keyboard.D);
         this.rockButton.onDown.add(this.onRock,this);
 
-
-        
-        this.scrollText = game.add.bitmapText(0.9 * game.world.width, 0.8 * game.world.height, 'Bazaronite', "ABCDEFGHIJKLMNOPQRSTUV", 60);
+        this.content = TEST[0]['content'];
+        this.scrollText = game.add.bitmapText(0.9 * game.world.width, 0.8 * game.world.height, 'Bazaronite', this.content, 60);
         this.scrollText.align = 'left';
+        // this.scrollText = game.add.bitmapText(0.9 * game.world.width, 0.8 * game.world.height, 'Bazaronite', "ABCDEFGHIJKLMNOPQRSTUV", 60);
+        // this.scrollText.align = 'left';
         
 
         this.letterCover = game.add.sprite(game.world.centerX, game.world.centerY,'lCover');
@@ -110,7 +142,7 @@ var game = new Phaser.Game(1280, 712, Phaser.CANVAS, 'target', {
         if(this.stringArray.length > this.currentStringNum){
             this.scrollText.text = this.stringArray[this.currentStringNum];
             if(this.scrollTextTween == null){
-                this.scrollTextTween = game.add.tween(this.scrollText).to({x:-(this.scrollText.textWidth*this.scrollText.text.length + 520)}, 3000, "Linear", true, 0, 0);
+                this.scrollTextTween = game.add.tween(this.scrollText).to({x:-(this.scrollText.textWidth*this.scrollText.text.length + 520)}, 10000, "Linear", true, 0, 0);
                 this.scrollTextTween.onComplete.add(this.readNextText, this);
             }else{
                 if(!this.scrollTextTween.isRunning){
@@ -146,7 +178,11 @@ var game = new Phaser.Game(1280, 712, Phaser.CANVAS, 'target', {
     // },
 
     addToStringArray: function() {
-        this.stringArray.push('ABCDEFGHIJKLMNOPQRSTUV');
+        // this.scrollText = game.add.bitmapText(0.9 * game.world.width, 0.8 * game.world.height, 'Bazaronite', TEST[0]['content'], 60);
+        // this.scrollText.align = 'left';
+        var index = Math.floor(Math.random() * 10);
+        this.content = TEST[index]['content'];
+        this.stringArray.push(this.content);
         this.onRock();
         this.rockStartTime = game.time.time;
     },

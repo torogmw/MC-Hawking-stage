@@ -64,10 +64,16 @@ var game = new Phaser.Game(375, 667, Phaser.CANVAS, 'target', {
 
   buttonClicked: function() {
       var message = this.myInput.canvasInput.value();
-      this.myInput.canvasInput.value('');   
-      var xhr = new XMLHttpRequest();
-      xhr.open('get', '/api/send?message='+message, true);
-      xhr.send(message);
+      this.myInput.canvasInput.value('');
+      //File data test    
+     reqwest({
+          url: '/api/send?message=' + encodeURIComponent(message)
+          , method: 'get'
+          , error: function (err) { }
+          , success: function (resp) {
+            console.log("send successfully", resp);
+          }
+      });
       this.StopAnimation();
   },
 
@@ -98,7 +104,7 @@ var game = new Phaser.Game(375, 667, Phaser.CANVAS, 'target', {
               canvas: bmd.canvas,
               extraX: x - 140,
               extraY: y - 95,
-              fontSize: 30,
+              fontSize: 20,
               fontFamily: 'Arial',
               fontColor: '#3fdf6c',
               fontWeight: 'bold',

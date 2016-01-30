@@ -4,7 +4,7 @@ import Queue
 import time, threading
 
 client = OSC.OSCClient()
-client.connect(('127.0.0.1', 7373))
+client.connect(('127.0.0.1', 12345))
 queueRap = Queue.Queue()
 
 # # recieve message
@@ -40,9 +40,7 @@ queueRap = Queue.Queue()
 
 
 def send_lyrics(message):
-    # send port 7373
-    print "hello"
-    print message
+    # send port 12345
     msg = OSC.OSCMessage()
     msg.setAddress("/new_phrase")
     msg.append(message)
